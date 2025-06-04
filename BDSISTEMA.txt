@@ -1,0 +1,929 @@
+create database Carritodecompra;
+use Carritodecompra;
+# Tabla Empresa
+
+create table Empresa(
+	Id int primary key auto_increment,
+	Nombre varchar(255) not null,
+    Nro varchar(255) not null,
+    Direccion varchar(255) not null,
+    Ubigeo varchar(255) not null,
+    Adicional varchar(255) not null,
+	filename1 varchar(255),
+	path1 varchar(255)
+);
+
+# Tabla Clasificacion
+create table Clasificacion(
+	Idclasi int primary key auto_increment,
+    Codigo varchar(5) not null,
+	Nombre varchar(255) not null,
+    Estado  varchar(255) not null
+);
+# Tabla Catagoria
+create table Categoria(
+	Idcategoria int primary key auto_increment,
+    Codigo varchar(5) not null,
+	Nombre varchar(255) not null,
+    Estado  varchar(255) not null
+);
+
+# Tabla Motivo
+create table Motivo(
+	Idmotivo int primary key auto_increment,
+    Codigo varchar(5) not null,
+	Nombre varchar(255) not null,
+    Tipo varchar(255) not null,
+    Estado  varchar(255) not null
+);
+
+#tabla UnidadMedidaVenta 
+create table UnidadMedidaVenta(
+Iduventa int primary key auto_increment,
+Codigo varchar(5)not null,
+Nombre varchar(55),
+Contenido int,
+Estado varchar(55) not null
+);
+
+#tabla Producto 
+create table Producto(
+    Idproducto int primary key auto_increment,
+    Codigo varchar(6),
+    Descripcion varchar(255),
+	Idclasi int,
+    Idcategoria int,
+    Iduventa int,
+	Moneda varchar(20),
+    Codigoanexo varchar(20),
+    Preciocompra decimal(11,2),
+    Precioventa decimal(11,2),
+    Fecharegistro  date,
+    Obser varchar(200),
+    Stock  decimal(11,2),
+    Stockminimo  decimal(11,2),
+    Stockmaximo  decimal(11,2),
+    Estado  varchar(20),
+	filename1 varchar(255),
+	path1 varchar(255),
+	filename2 varchar(255),
+	path2 varchar(255),
+	filename3 varchar(255),
+	path3 varchar(255),
+	filename4 varchar(255),
+	path4 varchar(255),
+	filename5 varchar(255),
+	path5 varchar(255),
+	filename6 varchar(255),
+	path6 varchar(255)
+);
+#tabla Cliente 
+create table Auxiliar(
+    Idauxiliar int primary key auto_increment,
+    Tipoauxi varchar(6) not null,
+	Codigo  varchar(6) not null,
+    Nombre varchar(255) not null,
+    Correo varchar(255) not null,
+    Telefono varchar(255),
+    Celular varchar(255),
+    Direccion varchar(255) not null,
+    Contacto varchar(255) ,
+    Fechaderegistro date not null,
+    Idtipodocumento int not null,
+    Numerodocumento varchar(255) not null,
+    Sexo varchar (10),
+    Estado  varchar(20) not null
+    
+);
+#tabla TipoDocumento 
+create table TipoDocumento(
+Idtipodocumento int primary key auto_increment, 
+Codigo int not null,
+TipoDocumento varchar(50) not null
+);
+#tabla Venta
+create table Movimiento(
+	    Idmovimiento int(10) primary key,
+	    Idauxiliar int(10) not null,
+        Idusuario int(10) not null,
+        Tipocomprobante varchar(20)  not null,
+        Serie varchar(10)  not null,
+        Correlativo varchar(10)  not null,
+        Fecha varchar(50),
+        Fechaentrega varchar(50),
+        Idreferencia int,
+        Referencia varchar(50),
+        Tienda varchar(50) NOT NULL,
+        Almacen varchar(50)  not null,
+        condicion varchar(50),
+        Idmotivo int NOT NULL,
+        Idtrans int(10),
+        Idvehi int(10),
+        Idcond int(10),
+	    Subtotal decimal(11,2) not null,
+		Igv  decimal(11,2) not null,
+        Total decimal(11,2) not null,
+		Estado varchar(30)  not null
+);
+#tabla Detallemovimiento
+create table DetalleMovimiento(
+	Iddetalle int primary key key auto_increment,
+    Idmovimiento int not null,
+	Idproducto int not null,
+	Cantidad decimal(11,2) not null,
+    Costo decimal(11,2) not null,
+    Subtotal decimal(11,2) not null,
+    Estado varchar(30)  not null,
+    Saldo decimal(11,2) not null
+);
+create table kardex(
+	Iddetallekardex int primary key auto_increment,
+    Idmovimiento int not null,
+	Idproducto int not null,
+    Ingreso decimal(11,2) not null,
+	Salida decimal(11,2) not null,
+    Saldo decimal(11,2) not null,
+    Estado varchar(30)  not null,
+    Costo decimal(11,2) not null
+);
+
+#tabla Asignar usuario
+CREATE TABLE usuario(
+    id int primary key auto_increment,
+    Codigo varchar(6) not null,
+    nombre varchar(100) NOT NULL,
+    Idtipodocumento int not null,
+    dni varchar(20) NOT NULL,
+    sueldo decimal(11,2) NOT NULL,
+    telefono varchar(50),
+    direccion varchar(50),
+    email varchar(50),
+    fecharegistro date,
+	filename1 varchar(255),
+	path1 varchar(255),
+	usu varchar(50) NOT NULL,
+    password varchar(50) NOT NULL,
+    rol varchar(30) NOT NULL,
+    idcliente int ,
+    estado varchar(50) not null
+) ;
+
+# Tabla Transporte
+create table Transporte(
+	Idtrans int primary key auto_increment,
+    Codigo varchar(6) not null,
+	Nombre varchar(255) not null,
+    Tipo varchar(50) not null,
+    Estado  varchar(255) not null
+);
+# Tabla Vehiculo
+create table Vehiculo(
+	Idvehi int primary key auto_increment,
+    Codigo varchar(6) not null,
+	placa varchar(255) not null,
+    marca varchar(255) not null,
+    Estado  varchar(255) not null
+);
+# Tabla Transporte
+create table Conductor(
+	Idcond int primary key auto_increment,
+    Codigo varchar(6) not null,
+    Idtipodocumento int not null,
+    Numerodocumento varchar(255) not null,
+	chofer varchar(255) not null,
+    licencia varchar(255) not null,
+    Estado  varchar(255) not null
+);
+#Relacionar tablas
+ALTER TABLE Producto ADD CONSTRAINT FK_Idcategoria FOREIGN KEY (Idcategoria)REFERENCES  Categoria(Idcategoria)
+ON DELETE NO ACTION ON UPDATE NO ACTION ;
+ALTER TABLE Producto ADD CONSTRAINT FK_Idclasi FOREIGN KEY (Idclasi)REFERENCES  Clasificacion(Idclasi)
+ON DELETE NO ACTION ON UPDATE NO ACTION ;
+ALTER TABLE Producto ADD CONSTRAINT FK_Iduventa FOREIGN KEY (Iduventa)REFERENCES  UnidadMedidaVenta(Iduventa)
+ON DELETE NO ACTION ON UPDATE NO ACTION ;
+ALTER TABLE Auxiliar ADD CONSTRAINT FK_Idtipodocumento FOREIGN KEY (Idtipodocumento)REFERENCES TipoDocumento(Idtipodocumento)
+ON DELETE NO ACTION ON UPDATE NO ACTION ;
+ALTER TABLE Usuario ADD CONSTRAINT FK_Idtipodocum FOREIGN KEY (Idtipodocumento)REFERENCES  TipoDocumento(Idtipodocumento)
+ON DELETE NO ACTION ON UPDATE NO ACTION ;
+ALTER TABLE Movimiento ADD CONSTRAINT FK_Idauxiliars FOREIGN KEY (Idauxiliar)REFERENCES Auxiliar(Idauxiliar)
+ON DELETE NO ACTION ON UPDATE NO ACTION ;
+ALTER TABLE Movimiento ADD CONSTRAINT FK_Idusuario FOREIGN KEY (Idusuario)REFERENCES  usuario(id)
+ON DELETE NO ACTION ON UPDATE NO ACTION ;
+ALTER TABLE Detallemovimiento ADD CONSTRAINT FK_Idmovimiento FOREIGN KEY (Idmovimiento)REFERENCES Movimiento(Idmovimiento)
+ON DELETE NO ACTION ON UPDATE NO ACTION ;
+ALTER TABLE Detallemovimiento ADD CONSTRAINT FK_Idproductos FOREIGN KEY (Idproducto)REFERENCES  Producto(Idproducto)
+ON DELETE NO ACTION ON UPDATE NO ACTION ;
+ALTER TABLE Movimiento ADD CONSTRAINT FK_Idmotiv FOREIGN KEY (Idmotivo)REFERENCES  Motivo(Idmotivo)
+ON DELETE NO ACTION ON UPDATE NO ACTION ;
+ALTER TABLE Movimiento ADD CONSTRAINT FK_Idtrans FOREIGN KEY (Idtrans)REFERENCES  Transporte(Idtrans)
+ON DELETE NO ACTION ON UPDATE NO ACTION ;
+ALTER TABLE Movimiento ADD CONSTRAINT FK_Idvehi FOREIGN KEY (Idvehi)REFERENCES  Vehiculo(Idvehi)
+ON DELETE NO ACTION ON UPDATE NO ACTION ;
+ALTER TABLE Movimiento ADD CONSTRAINT FK_Idcond FOREIGN KEY (Idcond)REFERENCES  Conductor(Idcond)
+ON DELETE NO ACTION ON UPDATE NO ACTION ;
+ALTER TABLE Kardex ADD CONSTRAINT FK_Idmovimientos FOREIGN KEY (Idmovimiento)REFERENCES Movimiento(Idmovimiento)
+ON DELETE NO ACTION ON UPDATE NO ACTION ;
+ALTER TABLE Kardex ADD CONSTRAINT FK_Idproduct FOREIGN KEY (Idproducto)REFERENCES  Producto(Idproducto)
+ON DELETE NO ACTION ON UPDATE NO ACTION ;
+
+#Insertar usuario
+INSERT INTO Empresa(nombre,Nro,Direccion,Ubigeo,Adicional,filename1,path1) VALUES
+('EMPRESA SAC','2','Direccion','Direccion','ingjose@gmail.com','images\\slider-3.jpg','C:\\Users\\Dharmesh Mourya\\Documents\\NetBeansProjects\\ImageProject\\build\\web\\images\\slider-3.jpg');
+
+#Insertar Clasificacion
+insert into Clasificacion(Codigo,Nombre,Estado) values
+("00001","PRODUCTO TERMINADO","Activo"),
+("00003","MATERIA PRIMA","Activo");
+
+#Insertar Categoria
+insert into Categoria(Codigo,Nombre,Estado) values
+("00001","TOMATODO","Activo"),
+("00028","TELA","Activo");
+
+#Insertar TipoDocumento
+insert into TipoDocumento(Codigo,TipoDocumento) value
+(0, "NO Documentado"),
+(1, "DNI"),
+(4, "PASAPORTE"),
+(6, "RUC"),
+(7, "CARNET DE EXTRANJERIA");
+
+#Insertar auxiliar
+INSERT INTO Auxiliar(Tipoauxi,Codigo,Nombre,Correo,Telefono, Celular, Direccion,Contacto,Fechaderegistro, Idtipodocumento, Numerodocumento,Sexo,Estado) VALUES 
+("C","000001", "UNE3SERCERRADA", "uac@gmail.com","","","Cal. Lopez de Ayala Nro. 1585", "","2022-09-26 21:11:25","4","20011478121","","Activo"),
+("P","000005", "ANDAST S R L", "andinaplast@gmail.com","","","Cal. Isidro Bonifaz Nro. 433, independencia.", "","2022-09-26 21:11:25","4","20106076321","","Activo");
+
+#Insertar usuario
+INSERT INTO usuario (Codigo,nombre,Idtipodocumento,dni,sueldo,telefono,direccion,email,fecharegistro,filename1,path1,usu,password,rol,idcliente,estado) VALUES
+('000001','LUIS LOPEZ','2','144','2000.00', '', '', 'ingjose@gmail.com',"2022-08-26",'images\\slider-3.jpg','C:\\Users\\Dharmesh Mourya\\Documents\\NetBeansProjects\\ImageProject\\build\\web\\images\\slider-3.jpg', 'Almacen', 'A', 'Almacen','',"Activo"),
+('000002','PANTA JB','2','154','2000.00', '', '', 'ingjose@gmail.com',"2022-08-26",'images\\slider-3.jpg','C:\\Users\\Dharmesh Mourya\\Documents\\NetBeansProjects\\ImageProject\\build\\web\\images\\slider-3.jpg', 'A', 'A', 'Administrador','',"Activo"),
+('000002','JOSE J','2','155','2000.00', '', '', 'ingjose@gmail.com',"2022-08-26",'images\\slider-3.jpg','C:\\Users\\Dharmesh Mourya\\Documents\\NetBeansProjects\\ImageProject\\build\\web\\images\\slider-3.jpg', 'Compra', 'A', 'Compra','',"Activo"),
+('000004','EDIS LOPEZ','2','157','2000.00', '', '', 'ingjose@gmail.com',"2022-08-26",'images\\slider-3.jpg','C:\\Users\\Dharmesh Mourya\\Documents\\NetBeansProjects\\ImageProject\\build\\web\\images\\slider-3.jpg', 'Venta', 'A', 'Venta','',"Activo");
+
+#Insertar Undventa
+insert into UnidadMedidaVenta(Codigo,Nombre,Contenido,Estado) values
+("00001","PIEZA",1,"Activo"),
+("00006","MTS",1,"Activo");
+            
+#Insertar Producto
+INSERT INTO producto(Codigo,Descripcion,Idclasi,Idcategoria,Iduventa,Moneda,Codigoanexo,Preciocompra,Precioventa,Fecharegistro,Obser,Stock,Stockminimo,Stockmaximo,Estado,filename1,path1,filename2,path2,filename3,path3,filename4,path4,filename5,path5,filename6,path6) VALUES
+ ("000001", "PLANCHA EVA NEGRO",1, 1, 1,"soles","P-0006", 58,0.00,"2020-11-27"," ",0.00,0,0,"Activo",'images\\slider-3.jpg','C:\\Users\\Dharmesh Mourya\\Documents\\NetBeansProjects\\ImageProject\\build\\web\\images\\slider-3.jpg','images\\slider-3.jpg','C:\\Users\\Dharmesh Mourya\\Documents\\NetBeansProjects\\ImageProject\\build\\web\\images\\slider-3.jpg','images\\slider-3.jpg','C:\\Users\\Dharmesh Mourya\\Documents\\NetBeansProjects\\ImageProject\\build\\web\\images\\slider-3.jpg','images\\slider-3.jpg','C:\\Users\\Dharmesh Mourya\\Documents\\NetBeansProjects\\ImageProject\\build\\web\\images\\slider-3.jpg','images\\slider-3.jpg','C:\\Users\\Dharmesh Mourya\\Documents\\NetBeansProjects\\ImageProject\\build\\web\\images\\slider-3.jpg','images\\slider-3.jpg','C:\\Users\\Dharmesh Mourya\\Documents\\NetBeansProjects\\ImageProject\\build\\web\\images\\slider-3.jpg'),
+("000002", "PRODUCT EVA NEGRO",1, 1, 1,"soles","P-0006", 58,0.00,"2020-11-27"," ",0.00,0,0,"Activo",'images\\slider-3.jpg','C:\\Users\\Dharmesh Mourya\\Documents\\NetBeansProjects\\ImageProject\\build\\web\\images\\slider-3.jpg','images\\slider-3.jpg','C:\\Users\\Dharmesh Mourya\\Documents\\NetBeansProjects\\ImageProject\\build\\web\\images\\slider-3.jpg','images\\slider-3.jpg','C:\\Users\\Dharmesh Mourya\\Documents\\NetBeansProjects\\ImageProject\\build\\web\\images\\slider-3.jpg','images\\slider-3.jpg','C:\\Users\\Dharmesh Mourya\\Documents\\NetBeansProjects\\ImageProject\\build\\web\\images\\slider-3.jpg','images\\slider-3.jpg','C:\\Users\\Dharmesh Mourya\\Documents\\NetBeansProjects\\ImageProject\\build\\web\\images\\slider-3.jpg','images\\slider-3.jpg','C:\\Users\\Dharmesh Mourya\\Documents\\NetBeansProjects\\ImageProject\\build\\web\\images\\slider-3.jpg');
+ 
+#Insertar Motivo
+insert into Motivo(Codigo,Nombre,Tipo,Estado) values
+("00001","SALIDA PARA PRODUCCION","Salida","Activo"),
+("00002","SALIDA POR VENTA","Salida","Activo"),
+("00003","INGRESO POR PRODUCCION","Ingreso","Activo"),
+("00004","INGRESO POR COMPRA","Ingreso","Activo");
+
+#Insertar Transporte
+insert into Transporte(Codigo,Nombre,Tipo,Estado) values
+("00001","Empresa S.A.C","Privado","Activo");
+
+#Insertar Vehiculo
+insert into Vehiculo(Codigo,placa,marca,Estado) values
+("00001","A7M668","NISSAN","Activo");
+
+#Insertar Conductor
+insert into Conductor(Codigo,Idtipodocumento,Numerodocumento,chofer,licencia,Estado) values
+("00001","1","75469293","Hugo Domingo Parreño Barrios","X25469293","Activo");
+
+# Procedure "Generar numero de codigoClasidicacion"
+delimiter @@
+ drop  procedure if exists sp_generar_codigoclasificacion @@ 
+CREATE  PROCEDURE sp_generar_codigoclasificacion()
+begin
+    declare codeClas char(6);
+    declare codclas int;
+	select ifnull(max(Codigo),0)+1 into codclas
+	 from Clasificacion;
+     set codeClas = lpad(codclas ,5 ,'0' );
+     select codeClas;
+end @@ 
+delimiter ;
+call sp_generar_codigoclasificacion();
+
+# Procedure "Generar numero de codigocategoria"
+delimiter @@
+ drop  procedure if exists sp_generar_codigocategoria @@ 
+create procedure sp_generar_codigocategoria()
+begin
+    declare codeCat char(6);
+    declare codcat int;
+	select ifnull(max(Codigo),0)+1 into codcat
+	 from Categoria;
+     set codeCat = lpad(codcat ,5 ,'0' );
+     select codeCat;
+end @@ 
+delimiter ;
+call sp_generar_codigocategoria();
+
+# Procedure "Generar numero de codigouventa"
+delimiter @@
+ drop  procedure if exists sp_generar_codigoUndVenta @@ 
+CREATE  PROCEDURE sp_generar_codigoUndVenta()
+begin
+    declare codeUve char(6);
+    declare coduve int;
+	select ifnull(max(Codigo),0)+1 into coduve
+	 from unidadmedidaventa;
+     set codeUve = lpad(coduve ,5 ,'0' );
+     select codeUve;
+end @@ 
+delimiter ;
+call sp_generar_codigoUndVenta();
+
+# Procedure "Generar numero de Vehiculo"
+delimiter @@
+ drop  procedure if exists sp_generar_codigotransporte @@ 
+CREATE  PROCEDURE sp_generar_codigotransporte()
+begin
+    declare codeTra char(6);
+    declare codtra int;
+	select ifnull(max(Codigo),0)+1 into codtra
+	 from Transporte;
+     set codeTra = lpad(codtra ,5 ,'0' );
+     select codeTra;
+end @@ 
+delimiter ;
+call sp_generar_codigotransporte();
+
+# Procedure "Generar numero de codigo producto"
+delimiter @@
+ drop  procedure if exists sp_generar_codigoproducto @@ 
+create procedure sp_generar_codigoproducto()
+begin
+    declare codePro char(6);
+    declare codpro int;
+	select ifnull(max(Codigo),0)+1 into codpro
+	 from Producto;
+     
+     set codePro = lpad(codpro ,6 ,'0' );
+     
+     select codePro;
+end @@ 
+delimiter ;
+call sp_generar_codigoproducto();
+
+# Procedure "Generar numero de codigocliente"
+delimiter @@
+ drop  procedure if exists sp_generar_codigocliente @@ 
+CREATE  PROCEDURE sp_generar_codigocliente()
+begin
+    declare codeClie char(8);
+    declare codclie int;
+	select ifnull(max(Codigo),0)+1 into codclie
+	 from Auxiliar where Tipoauxi='C';
+     set codeClie = lpad(codclie ,6 ,'0');
+     select codeClie;
+end @@ 
+delimiter ;
+call sp_generar_codigocliente();
+
+delimiter @@
+ drop  procedure if exists sp_generar_codigoproveedor @@ 
+CREATE  PROCEDURE sp_generar_codigoproveedor()
+begin
+    declare codeProv char(8);
+    declare codprov int;
+	select ifnull(max(Codigo),0)+1 into codprov
+	 from Auxiliar where Tipoauxi='P';
+     set codeProv = lpad(codprov ,6 ,'0');
+     select codeProv;
+end @@ 
+delimiter ;
+call sp_generar_codigoproveedor();
+
+
+# Procedure "Generar numero de codigoconductor"
+delimiter @@
+ drop  procedure if exists sp_generar_codigoconductor @@ 
+CREATE  PROCEDURE sp_generar_codigoconductor()
+begin
+    declare codeCon char(6);
+    declare codcon int;
+	select ifnull(max(Codigo),0)+1 into codcon
+	 from Conductor;
+     set codeCon = lpad(codcon ,6 ,'0' );
+     select codeCon;
+end @@ 
+delimiter ;
+call sp_generar_codigoconductor();
+
+# Procedure "Generar numero de codigovehiculo"
+delimiter @@
+ drop  procedure if exists sp_generar_codigoVehiculo @@ 
+CREATE  PROCEDURE sp_generar_codigoVehiculo()
+begin
+    declare codeVeh char(6);
+    declare codveh int;
+	select ifnull(max(Codigo),0)+1 into codveh
+	 from Vehiculo;
+     set codeVeh = lpad(codveh ,6 ,'0' );
+     select codeVeh;
+end @@ 
+delimiter ;
+call sp_generar_codigoVehiculo();
+
+# Procedure "Generar numero de codigoUsuario"
+delimiter @@
+ drop  procedure if exists sp_generar_codigousuario @@ 
+CREATE  PROCEDURE sp_generar_codigousuario()
+begin
+    declare codeUsu char(6);
+    declare codusu int;
+	select ifnull(max(Codigo),0)+1 into codusu
+	 from usuario;
+     set codeUsu = lpad(codusu ,6 ,'0' );
+     select codeUsu;
+end @@ 
+delimiter ;
+call sp_generar_codigousuario();
+
+# Procedure "Generar numero de codigoMotivo"
+delimiter @@
+ drop  procedure if exists sp_generar_codigomotivo @@ 
+CREATE  PROCEDURE sp_generar_codigomotivo()
+begin
+    declare codeMot char(6);
+    declare codmot int;
+	select ifnull(max(Codigo),0)+1 into codmot
+	 from Motivo;
+     set codeMot = lpad(codmot ,5 ,'0' );
+     select codeMot;
+end @@ 
+delimiter ;
+call sp_generar_codigomotivo();
+
+# Procedure "Generar numero de codigoOrdencompra"
+delimiter @@
+ drop  procedure if exists sp_generar_codigoordendecompra @@ 
+CREATE  PROCEDURE sp_generar_codigoordendecompra()
+begin
+    declare codeOrde char(8);
+    declare codorde int;
+	select ifnull(max(Correlativo),0)+1 into codorde
+	 from Movimiento where Serie='OC01';
+     set codeOrde = lpad(codorde ,8 ,'0');
+     select codeOrde;
+end @@ 
+delimiter ;
+call sp_generar_codigoordendecompra();
+
+# Procedure "Generar numero de codigoNotadeIngreso"
+delimiter @@
+ drop  procedure if exists sp_generar_codigonotadeingreso @@ 
+CREATE  PROCEDURE sp_generar_codigonotadeingreso()
+begin
+    declare codeNing char(8);
+    declare codning int;
+	select ifnull(max(Correlativo),0)+1 into codning
+	 from Movimiento where Serie='NI01';
+     set codeNing = lpad(codning ,8 ,'0');
+     select codeNing;
+end @@ 
+delimiter ;
+call sp_generar_codigonotadeingreso();
+
+# Procedure "Generar numero de codigoNotadeSalida"
+delimiter @@
+ drop  procedure if exists sp_generar_codigonotadesalida @@ 
+CREATE  PROCEDURE sp_generar_codigonotadesalida()
+begin
+    declare codeNsal char(8);
+    declare codnsal int;
+	select ifnull(max(Correlativo),0)+1 into codnsal
+	 from Movimiento where Serie='NS01';
+     set codeNsal = lpad(codnsal ,8 ,'0');
+     select codeNsal;
+end @@ 
+delimiter ;
+call sp_generar_codigonotadesalida();
+
+# Procedure "Generar numero de codigoNotadeSalida"
+delimiter @@
+ drop  procedure if exists sp_generar_codigoguiaremisoncli @@ 
+CREATE  PROCEDURE sp_generar_codigoguiaremisoncli()
+begin
+    declare codeGrem char(8);
+    declare codgrem int;
+	select ifnull(max(Correlativo),0)+1 into codgrem
+	 from Movimiento where Serie='GR02';
+     set codeGrem = lpad(codgrem ,8 ,'0');
+     select codeGrem;
+end @@ 
+delimiter ;
+call sp_generar_codigoguiaremisoncli();
+
+# Procedure "Generar numero de Facturaventa"
+delimiter @@
+ drop  procedure if exists sp_generar_codigofacturaventa@@ 
+CREATE  PROCEDURE sp_generar_codigofacturaventa()
+begin
+    declare codeFac char(8);
+    declare codfac int;
+	select ifnull(max(Correlativo),0)+1 into codfac
+	 from Movimiento where Serie='F001';
+     set codeFac = lpad(codfac ,8 ,'0');
+     select codeFac;
+end @@ 
+delimiter ;
+call sp_generar_codigofacturaventa();
+
+# Procedure "Generar numero de Boletaventa"
+delimiter @@
+ drop  procedure if exists sp_generar_codigoboletaventa@@ 
+CREATE  PROCEDURE sp_generar_codigoboletaventa()
+begin
+    declare codeBol char(8);
+    declare codbol int;
+	select ifnull(max(Correlativo),0)+1 into codbol
+	 from Movimiento where Serie='B001';
+     set codeBol = lpad(codbol ,8 ,'0');
+     select codeBol;
+end @@ 
+delimiter ;
+call sp_generar_codigoboletaventa();
+
+# Procedure "Generar numero de Boletaventa"
+delimiter @@
+ drop  procedure if exists sp_generar_codigocotizacionventa@@ 
+CREATE  PROCEDURE sp_generar_codigocotizacionventa()
+begin
+    declare codeCot char(8);
+    declare codcot int;
+	select ifnull(max(Correlativo),0)+1 into codcot
+	 from Movimiento where Serie='CT01';
+     set codeCot = lpad(codcot ,8 ,'0');
+     select codeCot;
+end @@ 
+delimiter ;
+call sp_generar_codigocotizacionventa();
+
+# Procedure "Generar numero de Pedido"
+delimiter @@
+ drop  procedure if exists sp_generar_codigopedidoventa@@ 
+CREATE  PROCEDURE sp_generar_codigopedidoventa()
+begin
+    declare codePed char(8);
+    declare codped int;
+	select ifnull(max(Correlativo),0)+1 into codped
+	 from Movimiento where Serie='P001';
+     set codePed = lpad(codped ,8 ,'0');
+     select codePed;
+end @@ 
+delimiter ;
+call sp_generar_codigopedidoventa();
+
+# Procedure "Generar numero de codigocostoPT"
+delimiter @@
+ drop  procedure if exists sp_generar_codigocostoPT @@ 
+CREATE  PROCEDURE sp_generar_codigocostoPT()
+begin
+    declare codeCost char(8);
+    declare codcost int;
+	select ifnull(max(Correlativo),0)+1 into codcost
+	 from Movimiento where Serie='';
+     set codeCost = lpad(codcost ,8 ,'0');
+     select codeCost;
+end @@ 
+delimiter ;
+call sp_generar_codigocostoPT();
+
+# Procedure "Ultimo codigo insertado de venta"
+DROP PROCEDURE IF EXISTS sp_Codigomovimiento;
+create procedure  sp_Codigomovimiento()
+select max(Idmovimiento)from Movimiento;
+Call sp_Codigomovimiento();
+
+ # Procedure "listarProducto por Id" detalle de producto
+DROP PROCEDURE IF EXISTS sp_listaporid;
+create procedure sp_listaporid(cod int)
+select p.Idproducto,p.Codigo,p.Descripcion,p.Idclasi,p.Idcategoria,p.Iduventa,p.Moneda,p.Codigoanexo,p.Preciocompra,p.Precioventa,p.Fecharegistro,p.Obser,p.Stock,p.Stockminimo,Stockmaximo,p.Estado,p.filename1,p.filename2,p.filename3,p.filename4,p.filename5,p.filename6
+from Producto p where p.Idproducto=cod order by p.Descripcion;
+call sp_listaporid(1);
+
+# Procedure "sp_RegistrarMovimiento"
+delimiter @@
+DROP PROCEDURE IF EXISTS sp_RegistrarMovimiento @@
+CREATE PROCEDURE sp_RegistrarMovimiento(
+   INOUT 
+    cod  int ,
+   _Idauxiliar int,
+   _Idusu int,
+   _Tipocomprobante VARCHAR(20),
+   _Serie VARCHAR(10),
+   _Correlativo VARCHAR(10),
+   _Fecha varchar(50),
+   _Fechaentrega varchar(50),
+   _Idreferencia int,
+   _Referencia varchar(50),
+   _Tienda VARCHAR(50),
+   _Almacen VARCHAR(50),
+   _Condicion VARCHAR(50),
+   _Idmotivo int,
+   _Idtrans int,
+   _Idvehi int,
+   _Idcond int,
+   _Subtotal DECIMAL(11,2),
+   _Igv DECIMAL(11,2),
+   _Total DECIMAL(11,2),
+   _Estado VARCHAR(30)
+)
+BEGIN
+SELECT IFNULL(MAX(Idmovimiento),0)+1 into cod FROM Movimiento;
+INSERT INTO Movimiento VALUES ( cod,_Idauxiliar,_Idusu,_Tipocomprobante,_Serie,_Correlativo,_Fecha,_Fechaentrega,_Idreferencia,_Referencia,_Tienda,_Almacen,_Condicion,_Idmotivo,_Idtrans,_Idvehi,_Idcond,_Subtotal,_Igv,_Total,_Estado);
+end @@ 
+delimiter ;
+set @id:='';
+call sp_RegistrarMovimiento(@id,2,1,"NI",'NI01','00000001','30/11/20 - 10:34:46','30/11/2022',1,'Referencia',"PLASTITEX S.A.C","Almacen Tienda","Contado","1","1","1","1",'18.20','12.20', '35.20', 'Vendido') ;
+select @id;
+
+#Detalleventa
+DELIMITER ;;
+CREATE  PROCEDURE newdetallemovimiento(_Idmovimiento int,_Idproducto int,_cantidad decimal(11,2),_Costo decimal(11,2),_Subtotal decimal(11,2))
+BEGIN
+	insert into Detallemovimiento(Idmovimiento,Idproducto,Cantidad,Costo,Subtotal,Estado,Saldo) values(_Idmovimiento,_Idproducto,_Cantidad,_Costo,_Subtotal,"Activo","0.00");
+END ;;
+DELIMITER ;
+call newdetallemovimiento(1,2,15,15,20);
+
+#Detalleventa
+DELIMITER ;;
+CREATE  PROCEDURE newdetallekardex(_Idmovimiento int,_Idproducto int,_Ingreso decimal(11,2),_Salida decimal(11,2),_Saldo decimal(11,2))
+BEGIN
+	insert into Kardex(Idmovimiento,Idproducto,Ingreso,Salida,Saldo,Estado,Costo) values(_Idmovimiento,_Idproducto,_Ingreso,_Salida,_Saldo,"Activo","0.00");
+END ;;
+DELIMITER ;
+
+# Disparadores `detalle_venta` anular cambiar estado y devolver stock
+DROP TRIGGER IF EXISTS tr_updStockventaAnularNI;
+DELIMITER $$
+CREATE TRIGGER tr_updStockventaAnularNI AFTER UPDATE ON Detallemovimiento FOR EACH ROW BEGIN
+  UPDATE Producto a
+    JOIN Detallemovimiento di
+      ON di.Idproducto = a.Idproducto
+      JOIN Movimiento m
+      ON di.Idmovimiento = m.Idmovimiento
+     AND di.Estado ='Anulado'
+     AND di.Iddetalle =NEW.Iddetalle
+     set a.Stock = a.Stock - di.Cantidad
+     WHERE a.Idproducto = NEW.Idproducto  and m.Tipocomprobante="NOTA DE INGRESO"
+;
+end
+$$
+DELIMITER ;
+
+# Disparadores `detalle_venta` anular cambiar estado y devolver stock
+DROP TRIGGER IF EXISTS tr_updStockventaAnularNS;
+DELIMITER $$
+CREATE TRIGGER tr_updStockventaAnularNS AFTER UPDATE ON Detallemovimiento FOR EACH ROW BEGIN
+  UPDATE Producto a
+    JOIN Detallemovimiento di
+      ON di.Idproducto = a.Idproducto
+      JOIN Movimiento m
+      ON di.Idmovimiento = m.Idmovimiento
+     AND di.Estado ='Anulado'
+     AND di.Iddetalle =NEW.Iddetalle
+     set a.Stock = a.Stock + di.Cantidad
+     WHERE a.Idproducto = NEW.Idproducto  and m.Tipocomprobante="NOTA DE SALIDA"
+;
+end
+$$
+DELIMITER ;
+
+# Disparadores `detalle_MOVIMIENTO` anular cambiar estado y devolver stock
+DROP TRIGGER IF EXISTS tr_updStockventaAnularGR;
+DELIMITER $$
+CREATE TRIGGER tr_updStockventaAnularGR AFTER UPDATE ON Detallemovimiento FOR EACH ROW BEGIN
+  UPDATE Producto a
+    JOIN Detallemovimiento di
+      ON di.Idproducto = a.Idproducto
+      JOIN Movimiento m
+      ON di.Idmovimiento = m.Idmovimiento
+     AND di.Estado ='Anulado'
+     AND di.Iddetalle =NEW.Iddetalle
+     set a.Stock = a.Stock + di.Cantidad
+     WHERE a.Idproducto = NEW.Idproducto  and m.Tipocomprobante="GUIA DE REMISION"
+;
+end
+$$
+DELIMITER ;
+
+#Disparadores quitar stock con Nota Salida
+DROP TRIGGER IF EXISTS tr_updStockNotaSalida;
+DELIMITER $$
+CREATE TRIGGER tr_updStockNotaSalida AFTER INSERT ON Detallemovimiento FOR EACH ROW BEGIN
+ UPDATE Producto pxa
+JOIN Movimiento m
+ON NEW.Idmovimiento=m.Idmovimiento
+SET pxa.Stock = pxa.Stock - NEW.Cantidad 
+ WHERE pxa.Idproducto = NEW.Idproducto and m.Serie="NS01";
+END
+$$
+DELIMITER ;
+
+#Disparadores quitar stock Guia de remision
+DROP TRIGGER IF EXISTS tr_updStockguiaderemision;
+DELIMITER $$
+CREATE TRIGGER tr_updStockguiaderemision AFTER INSERT ON Detallemovimiento FOR EACH ROW BEGIN
+ UPDATE Producto pxa
+JOIN Movimiento m
+ON NEW.Idmovimiento=m.Idmovimiento
+SET pxa.Stock = pxa.Stock - NEW.Cantidad 
+ WHERE pxa.Idproducto = NEW.Idproducto and m.Serie="GR02";
+END
+$$
+DELIMITER ;
+
+#Disparadores agregar stock Nota de ingreso
+DROP TRIGGER IF EXISTS tr_updStockNotaIngresotienda;
+DELIMITER $$
+CREATE TRIGGER tr_updStockNotaIngresotienda AFTER INSERT ON Detallemovimiento FOR EACH ROW BEGIN
+ UPDATE Producto pxa
+JOIN Movimiento m
+ON NEW.Idmovimiento=m.Idmovimiento
+SET pxa.Stock = pxa.Stock + NEW.Cantidad 
+ WHERE pxa.Idproducto = NEW.Idproducto  and m.Serie="NI01";
+END
+$$
+DELIMITER ;
+
+ #actualizar precioCompra factura
+DROP TRIGGER IF EXISTS tr_updcostoCompra;
+DELIMITER $$
+CREATE TRIGGER tr_updcostoCompra AFTER INSERT ON Detallemovimiento FOR EACH ROW BEGIN
+ UPDATE Producto a
+ JOIN Movimiento c
+ ON NEW.Idmovimiento=c.Idmovimiento
+ SET a.Preciocompra =NEW.Costo
+ WHERE a.Idproducto = NEW.Idproducto AND c.Tipocomprobante="Factura de Compra";
+END
+$$
+
+ #actualizar precioventa factura
+DROP TRIGGER IF EXISTS tr_updpventa;
+DELIMITER $$
+CREATE TRIGGER tr_updpventa AFTER INSERT ON Detallemovimiento FOR EACH ROW BEGIN
+ UPDATE Producto a
+ JOIN Movimiento c
+ ON NEW.Idmovimiento=c.Idmovimiento
+ SET a.Precioventa =NEW.Costo/(1-0.4)
+ WHERE a.Idproducto = NEW.Idproducto AND c.Tipocomprobante="Factura de Compra";
+END
+$$
+
+#kardex
+DROP TRIGGER IF EXISTS tr_kardexingreso;
+DELIMITER $$
+CREATE TRIGGER tr_kardexingreso AFTER INSERT ON Detallemovimiento FOR EACH ROW BEGIN
+ UPDATE Kardex pxa
+ JOIN producto di
+      ON di.Idproducto = pxa.Idproducto
+SET pxa.Saldo=di.stock
+ WHERE pxa.Idproducto = NEW.Idproducto and NEW.Idmovimiento=pxa.Idmovimiento ;
+END
+$$
+DELIMITER ;
+
+DROP TRIGGER IF EXISTS tr_kardexingresosalida0;
+DELIMITER $$
+CREATE TRIGGER tr_kardexingresosalida0 AFTER INSERT ON Detallemovimiento FOR EACH ROW BEGIN
+ UPDATE Kardex pxa
+ JOIN producto di
+      ON di.Idproducto = pxa.Idproducto
+       JOIN Movimiento m
+      ON m.Idmovimiento = pxa.Idmovimiento
+SET pxa.Salida=0
+ WHERE pxa.Idproducto = NEW.Idproducto and NEW.Idmovimiento=pxa.Idmovimiento and m.serie="NI01" ;
+END
+$$
+DELIMITER ;
+
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `MOSTRAR_USUARIO_POR_CODIGO`(
+	IN CCodigo_U VARCHAR(100)
+)
+begin
+	select * from USUARIO
+    where usu = CCodigo_U;
+end ;;
+DELIMITER ;
+#-------------------------
+#----------------------
+# Procedure "Cantidad de requerimiento pendiente"
+delimiter @@
+ drop  procedure if exists sp_generar_contarOC @@ 
+CREATE  PROCEDURE sp_generar_contarOC()
+begin
+   SELECT COUNT(Idmovimiento) AS Y
+FROM Movimiento
+WHERE estado='Pendiente' and Serie="OC01";
+end @@ 
+delimiter ;
+call sp_generar_contarOC();
+
+# Procedure "Cantidad de cliente"
+delimiter @@
+ drop  procedure if exists sp_generar_contarcliente @@ 
+CREATE  PROCEDURE sp_generar_contarcliente()
+begin
+   SELECT COUNT(Idauxiliar) AS Y
+FROM Auxiliar
+WHERE Tipoauxi='C' ;
+end @@ 
+delimiter ;
+call sp_generar_contarcliente();
+
+# Procedure "Cantidad de proveedor"
+delimiter @@
+ drop  procedure if exists sp_generar_contarproveedor @@ 
+CREATE  PROCEDURE sp_generar_contarproveedor()
+begin
+   SELECT COUNT(Idauxiliar) AS Y
+FROM Auxiliar
+WHERE Tipoauxi='P' ;
+end @@ 
+delimiter ;
+call sp_generar_contarproveedor();
+
+# Procedure "Cantidad de producto"
+delimiter @@
+ drop  procedure if exists sp_generar_contarproducto @@ 
+CREATE  PROCEDURE sp_generar_contarproducto()
+begin
+   SELECT COUNT(Idproducto) AS Y
+FROM Producto;
+end @@ 
+delimiter ;
+call sp_generar_contarproducto();
+
+
+# Procedure "Total de oc"
+delimiter @@
+ drop  procedure if exists sp_generar_contaroc @@ 
+CREATE  PROCEDURE sp_generar_contaroc()
+begin
+   SELECT COUNT(Idmovimiento) AS Y
+FROM Movimiento
+WHERE Serie="OC01";
+end @@ 
+delimiter ;
+call sp_generar_contaroc();
+
+# Procedure "Total de Factura de compra"
+delimiter @@
+ drop  procedure if exists sp_generar_contarfc @@ 
+CREATE  PROCEDURE sp_generar_contarfc()
+begin
+   SELECT COUNT(Idmovimiento) AS Yeny
+FROM Movimiento
+WHERE Tipocomprobante="FACTURA DE COMPRA";
+end @@ 
+delimiter ;
+call sp_generar_contarfc();
+
+# Procedure "Total de valor total Factura de compra"
+delimiter @@
+ drop  procedure if exists sp_generar_valortotaldecompra @@ 
+CREATE  PROCEDURE sp_generar_valortotaldecompra()
+begin
+   SELECT SUM(Total) AS Yeny
+FROM Movimiento
+WHERE Tipocomprobante="FACTURA DE COMPRA" and estado="Terminado";
+end @@ 
+delimiter ;
+call sp_generar_valortotaldecompra();
+
+# Procedure "Cantidad de USUARIOS"
+delimiter @@
+ drop  procedure if exists sp_generar_contarusuario @@ 
+CREATE  PROCEDURE sp_generar_contarusuario()
+begin
+   SELECT COUNT(Id) AS Y
+FROM Usuario;
+end @@ 
+delimiter ;
+call sp_generar_contarusuario();
+
+
+# Procedure "Cantidad de valorinventario"
+delimiter @@
+ drop  procedure if exists sp_generar_valorinventario @@ 
+CREATE  PROCEDURE sp_generar_valorinventario()
+begin
+   SELECT SUM(Preciocompra*Stock) AS Y
+FROM Producto where estado="activo";
+end @@ 
+delimiter ;
+call sp_generar_valorinventario();
+
+# Procedure "Ultimo codigo insertado de cliente"
+DROP PROCEDURE IF EXISTS sp_Codigocliente;
+create procedure  sp_Codigocliente()
+select max(Idauxiliar)from Auxiliar;
+Call sp_Codigocliente();
+
+select * from Auxiliar;
+select * from producto;
